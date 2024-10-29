@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/inputStudentInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите информацию о студенте (Имя Возраст Баллы)" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить студента" />
+
+    <EditText
+        android:id="@+id/removeIdInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите ID для удаления" />
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Удалить студента" />
+
+    <EditText
+        android:id="@+id/updatePointsInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Обновить баллы (ID НОВЫЕ БАЛЛЫ)" />
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Обновить баллы" />
+
+    <EditText
+        android:id="@+id/renameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Переименовать (ID НОВОЕ ИМЯ)" />
+
+    <Button
+        android:id="@+id/renameButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Переименовать" />
+
+    <Button
+        android:id="@+id/printByPointsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сортировать по баллам" />
+
+    <Button
+        android:id="@+id/printByNamesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сортировать по именам" />
+
+    <TextView
+        android:id="@+id/outputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

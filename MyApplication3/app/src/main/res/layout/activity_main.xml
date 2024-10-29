@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/vehicleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Транспортное средство"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/vehicleDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите транспортное средство для описания"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp" />
+
+    <Button
+        android:id="@+id/scooterButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Самокат" />
+
+    <Button
+        android:id="@+id/bicycleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Велосипед" />
+
+    <Button
+        android:id="@+id/combustionCarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Автомобиль с ДВС" />
+
+    <Button
+        android:id="@+id/electricCarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Электромобиль" />
+
+    <TextView
+        android:id="@+id/vehicleInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Информация о выбранном транспортном средстве будет здесь."
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="16dp" />
+
+</LinearLayout>

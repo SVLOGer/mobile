@@ -1,0 +1,56 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/inputWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите слово" />
+
+    <EditText
+        android:id="@+id/inputContext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите контекст" />
+
+    <EditText
+        android:id="@+id/inputTranslate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите перевод" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить" />
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Удалить" />
+
+    <Button
+        android:id="@+id/translateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Перевести" />
+
+    <Button
+        android:id="@+id/printButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Показать весь словарь" />
+
+    <TextView
+        android:id="@+id/outputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingTop="16dp" />
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_name_size">24sp</dimen>
+    <dimen name="user_bio_size">16sp</dimen>
+    <dimen name="user_email_size">16sp</dimen>
+</resources>
