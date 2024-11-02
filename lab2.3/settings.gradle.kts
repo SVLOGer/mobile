@@ -11,18 +11,15 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven {
-            url = uri("https://jitpack.io")
-        }
+        maven ("https://jitpack.io")
     }
 }
 
-rootProject.name = "MoviesListActivity"
+rootProject.name = "Movies Activity"
 include(":app")
  

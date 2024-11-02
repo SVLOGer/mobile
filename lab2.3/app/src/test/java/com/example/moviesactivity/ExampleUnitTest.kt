@@ -1,4 +1,4 @@
-package com.example.movieslistactivity
+package com.example.moviesactivity
 
 import org.junit.Test
 
