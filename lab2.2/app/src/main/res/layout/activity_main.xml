@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -18,7 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Верхняя часть с выражением -->
         <TextView
             android:id="@+id/expressionLabel"
             android:layout_width="wrap_content"
@@ -44,7 +42,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Нижняя часть с результатом -->
         <TextView
             android:id="@+id/resultLabel"
             android:layout_width="wrap_content"
@@ -92,7 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputBlock">
 
-        <!-- Первая строка -->
         <Button
             android:id="@+id/btn7"
             android:layout_width="0dp"
@@ -104,7 +100,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toStartOf="@id/btn8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btn8"
@@ -117,7 +114,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toStartOf="@id/btn9"
             app:layout_constraintStart_toEndOf="@id/btn7"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btn9"
@@ -130,7 +128,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toStartOf="@id/btnDivide"
             app:layout_constraintStart_toEndOf="@id/btn8"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btnDivide"
@@ -143,9 +142,9 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn9"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1" />
 
-        <!-- Вторая строка -->
         <Button
             android:id="@+id/btn4"
             android:layout_width="0dp"
@@ -157,7 +156,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn1"
             app:layout_constraintEnd_toStartOf="@id/btn5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn7" />
+            app:layout_constraintTop_toBottomOf="@id/btn7"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btn5"
@@ -170,7 +170,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn2"
             app:layout_constraintEnd_toStartOf="@id/btn6"
             app:layout_constraintStart_toEndOf="@id/btn4"
-            app:layout_constraintTop_toBottomOf="@id/btn8" />
+            app:layout_constraintTop_toBottomOf="@id/btn8"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btn6"
@@ -183,7 +184,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn3"
             app:layout_constraintEnd_toStartOf="@id/btnMultiply"
             app:layout_constraintStart_toEndOf="@id/btn5"
-            app:layout_constraintTop_toBottomOf="@id/btn9" />
+            app:layout_constraintTop_toBottomOf="@id/btn9"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btnMultiply"
@@ -196,9 +198,9 @@
             app:layout_constraintBottom_toTopOf="@id/btnMinus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn6"
-            app:layout_constraintTop_toBottomOf="@id/btnDivide" />
+            app:layout_constraintTop_toBottomOf="@id/btnDivide"
+            app:layout_constraintDimensionRatio="1:1" />
 
-        <!-- Третья строка -->
         <Button
             android:id="@+id/btn1"
             android:layout_width="0dp"
@@ -210,7 +212,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn0"
             app:layout_constraintEnd_toStartOf="@id/btn2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn4" />
+            app:layout_constraintTop_toBottomOf="@id/btn4"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btn2"
@@ -220,10 +223,11 @@
             android:text="2"
             android:textColor="#000000"
             android:textSize="48sp"
-            app:layout_constraintBottom_toTopOf="@id/btnComma"
+            app:layout_constraintBottom_toTopOf="@id/btn0"
             app:layout_constraintEnd_toStartOf="@id/btn3"
             app:layout_constraintStart_toEndOf="@id/btn1"
-            app:layout_constraintTop_toBottomOf="@id/btn5" />
+            app:layout_constraintTop_toBottomOf="@id/btn5"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btn3"
@@ -233,25 +237,26 @@
             android:text="3"
             android:textColor="#000000"
             android:textSize="48sp"
-            app:layout_constraintBottom_toTopOf="@id/btnComma"
+            app:layout_constraintBottom_toTopOf="@id/btn0"
             app:layout_constraintEnd_toStartOf="@id/btnMinus"
             app:layout_constraintStart_toEndOf="@id/btn2"
-            app:layout_constraintTop_toBottomOf="@id/btn6" />
+            app:layout_constraintTop_toBottomOf="@id/btn6"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btnMinus"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:backgroundTint="#66FF66"
-            android:text="−"
+            android:text="-"
             android:textColor="#000000"
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@id/btnPlus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn3"
-            app:layout_constraintTop_toBottomOf="@id/btnMultiply" />
+            app:layout_constraintTop_toBottomOf="@id/btnMultiply"
+            app:layout_constraintDimensionRatio="1:1" />
 
-        <!-- Четвёртая строка -->
         <Button
             android:id="@+id/btn0"
             android:layout_width="0dp"
@@ -263,20 +268,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnComma"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn1" />
+            app:layout_constraintTop_toBottomOf="@id/btn1"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btnComma"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:backgroundTint="#66FF66"
+            android:backgroundTint="#CCFFFF"
             android:text=","
             android:textColor="#000000"
             android:textSize="48sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnDelete"
             app:layout_constraintStart_toEndOf="@id/btn0"
-            app:layout_constraintTop_toBottomOf="@id/btn2" />
+            app:layout_constraintTop_toBottomOf="@id/btn2"
+            app:layout_constraintDimensionRatio="1:1" />
 
         <Button
             android:id="@+id/btnDelete"
@@ -289,7 +296,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnPlus"
             app:layout_constraintStart_toEndOf="@id/btnComma"
-            app:layout_constraintTop_toBottomOf="@id/btn3" />
+            app:layout_constraintTop_toBottomOf="@id/btn3"
+            app:layout_constraintDimensionRatio="1:1"/>
 
         <Button
             android:id="@+id/btnPlus"
@@ -302,8 +310,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnDelete"
-            app:layout_constraintTop_toBottomOf="@id/btnMinus" />
-
+            app:layout_constraintTop_toBottomOf="@id/btn3"
+            app:layout_constraintDimensionRatio="1:1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

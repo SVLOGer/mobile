@@ -86,7 +86,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toStartOf="@id/btn8"
             app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btn8"
@@ -99,7 +100,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toStartOf="@id/btn9"
             app:layout_constraintStart_toEndOf="@id/btn7"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btn9"
@@ -112,7 +114,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toStartOf="@id/btnDivide"
             app:layout_constraintStart_toEndOf="@id/btn8"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btnDivide"
@@ -125,7 +128,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn9"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <!-- Вторая строка -->
         <Button
@@ -139,7 +143,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn1"
             app:layout_constraintEnd_toStartOf="@id/btn5"
             app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@id/btn7" />
+            app:layout_constraintTop_toBottomOf="@id/btn7"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btn5"
@@ -152,7 +157,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn2"
             app:layout_constraintEnd_toStartOf="@id/btn6"
             app:layout_constraintStart_toEndOf="@id/btn4"
-            app:layout_constraintTop_toBottomOf="@id/btn8" />
+            app:layout_constraintTop_toBottomOf="@id/btn8"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btn6"
@@ -165,7 +171,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn3"
             app:layout_constraintEnd_toStartOf="@id/btnMultiply"
             app:layout_constraintStart_toEndOf="@id/btn5"
-            app:layout_constraintTop_toBottomOf="@id/btn9" />
+            app:layout_constraintTop_toBottomOf="@id/btn9"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btnMultiply"
@@ -178,7 +185,8 @@
             app:layout_constraintBottom_toTopOf="@id/btnMinus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn6"
-            app:layout_constraintTop_toBottomOf="@id/btnDivide" />
+            app:layout_constraintTop_toBottomOf="@id/btnDivide"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <!-- Третья строка -->
         <Button
@@ -192,7 +200,8 @@
             app:layout_constraintBottom_toTopOf="@id/btn0"
             app:layout_constraintEnd_toStartOf="@id/btn2"
             app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@id/btn4" />
+            app:layout_constraintTop_toBottomOf="@id/btn4"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btn2"
@@ -205,7 +214,8 @@
             app:layout_constraintBottom_toTopOf="@id/btnComma"
             app:layout_constraintEnd_toStartOf="@id/btn3"
             app:layout_constraintStart_toEndOf="@id/btn1"
-            app:layout_constraintTop_toBottomOf="@id/btn5" />
+            app:layout_constraintTop_toBottomOf="@id/btn5"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btn3"
@@ -218,7 +228,8 @@
             app:layout_constraintBottom_toTopOf="@id/btnComma"
             app:layout_constraintEnd_toStartOf="@id/btnMinus"
             app:layout_constraintStart_toEndOf="@id/btn2"
-            app:layout_constraintTop_toBottomOf="@id/btn6" />
+            app:layout_constraintTop_toBottomOf="@id/btn6"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btnMinus"
@@ -231,7 +242,8 @@
             app:layout_constraintBottom_toTopOf="@id/btnPlus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn3"
-            app:layout_constraintTop_toBottomOf="@id/btnMultiply" />
+            app:layout_constraintTop_toBottomOf="@id/btnMultiply"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <!-- Четвёртая строка -->
         <Button
@@ -245,7 +257,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnComma"
             app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@id/btn1" />
+            app:layout_constraintTop_toBottomOf="@id/btn1"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btnComma"
@@ -258,7 +271,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnDelete"
             app:layout_constraintStart_toEndOf="@id/btn0"
-            app:layout_constraintTop_toBottomOf="@id/btn2" />
+            app:layout_constraintTop_toBottomOf="@id/btn2"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btnDelete"
@@ -271,7 +285,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnPlus"
             app:layout_constraintStart_toEndOf="@id/btnComma"
-            app:layout_constraintTop_toBottomOf="@id/btn3" />
+            app:layout_constraintTop_toBottomOf="@id/btn3"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <Button
             android:id="@+id/btnPlus"
@@ -284,7 +299,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnDelete"
-            app:layout_constraintTop_toBottomOf="@id/btnMinus" />
+            app:layout_constraintTop_toBottomOf="@id/btnMinus"
+            app:layout_constraintDimensionRatio="2:1" />
 
         <!-- Кнопка "=" -->
         <Button
