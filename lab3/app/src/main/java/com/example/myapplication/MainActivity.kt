@@ -1,38 +1,29 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var firstNameInput: EditText
-    private lateinit var lastNameInput: EditText
-    private lateinit var buttonA: Button
-    private lateinit var buttonB: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)  // Убедитесь, что это правильный файл макета
 
-        firstNameInput = findViewById(R.id.firstNameInput)
-        lastNameInput = findViewById(R.id.lastNameInput)
-        buttonA = findViewById(R.id.buttonA)
-        buttonB = findViewById(R.id.buttonB)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-        buttonA.setOnClickListener {
-            val intent = Intent(this, ScreenAActivity::class.java).apply {
-                putExtra("firstName", firstNameInput.text.toString())
-                putExtra("lastName", lastNameInput.text.toString())
-            }
-            startActivity(intent)
-        }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        buttonB.setOnClickListener {
-            val intent = Intent(this, ScreenBActivity::class.java)
-            startActivity(intent)
-        }
+        setupActionBarWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

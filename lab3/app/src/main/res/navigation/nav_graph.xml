@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <!-- Главный экран -->
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.myapplication.MainFragment"
+        android:label="Main Fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_screenA"
+            app:destination="@id/screenAFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_screenB"
+            app:destination="@id/screenBFragment" />
+    </fragment>
+
+    <!-- Экран A -->
+    <fragment
+        android:id="@+id/screenAFragment"
+        android:name="com.example.myapplication.ScreenAFragment"
+        android:label="Screen A">
+        <action
+            android:id="@+id/action_screenAFragment_to_screenC"
+            app:destination="@id/screenCFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="surname"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Экран C -->
+    <fragment
+        android:id="@+id/screenCFragment"
+        android:name="com.example.myapplication.ScreenCFragment"
+        android:label="Screen C">
+        <!-- Переход на главный экран с очисткой стека -->
+        <action
+            android:id="@+id/action_screenCFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="surname"
+            app:argType="string" />
+        <argument
+            android:name="birthDate"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Экран B -->
+    <fragment
+        android:id="@+id/screenBFragment"
+        android:name="com.example.myapplication.ScreenBFragment"
+        android:label="Screen B">
+        <action
+            android:id="@+id/action_screenBFragment_to_screenD"
+            app:destination="@id/screenDFragment" />
+        <action
+            android:id="@+id/action_screenBFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <!-- Экран D -->
+    <fragment
+        android:id="@+id/screenDFragment"
+        android:name="com.example.myapplication.ScreenDFragment"
+        android:label="Screen D">
+        <!-- Переход на главный экран с очисткой стека -->
+        <action
+            android:id="@+id/action_screenDFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

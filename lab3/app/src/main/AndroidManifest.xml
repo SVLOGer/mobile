@@ -22,16 +22,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ScreenAActivity"
+            android:name="ScreenAFragment"
             android:exported="true" />
         <activity
-            android:name="ScreenBActivity"
+            android:name="ScreenBFragment"
             android:exported="true" />
         <activity
-            android:name="ScreenCActivity"
+            android:name="ScreenCFragment"
             android:exported="true" />
         <activity
-            android:name="ScreenDActivity"
+            android:name="ScreenDFragment"
             android:exported="true" />
     </application>
 
