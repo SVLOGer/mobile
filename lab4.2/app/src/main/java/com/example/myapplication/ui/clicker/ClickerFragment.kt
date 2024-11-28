@@ -28,14 +28,12 @@ class ClickerFragment : Fragment(R.layout.fragment_clicker) {
             animateCookieClick()
         }
 
-        gameViewModel.clickerUiState
-            .onEach {
-                gameViewModel.clickerUiState.collect { state ->
+        gameViewModel.gameState
+            .onEach { state ->
                     binding.cookieCount.text = getString(R.string.cookie_count, state.cookieCount)
                     binding.perSecond.text = getString(R.string.per_second, state.cookiesPerSecond)
                     binding.time.text = getString(R.string.time, state.elapsedTime)
                     binding.averageSpeed.text = getString(R.string.average_speed, state.cookiesPerSecond * 60.0)
-                }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 

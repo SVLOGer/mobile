@@ -32,33 +32,23 @@ class BuildingsFragment : Fragment(R.layout.fragment_buildings) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = BuildingsAdapter { building ->
-            gameViewModel.buyBuilding(building)
+                gameViewModel.buyBuilding(building)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        gameViewModel.clickerUiState
-            .onEach {
-                gameViewModel.buildings.collect { buildings ->
-                    adapter.submitList(buildings)
-                }
+        gameViewModel.gameState
+            .onEach { gameState ->
+                adapter.submitList(gameState.buildings)
+
+                gameViewModel.updateBuildingsAvailability()
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        gameViewModel.clickerUiState
-            .onEach {
-                gameViewModel.clickerUiState.collect { uiState ->
-                    gameViewModel.updateBuildingsAvailability()
-                }
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-
-        gameViewModel.clickerUiState
-            .onEach {
-                gameViewModel.toastMessage.collect { message ->
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                }
+        gameViewModel.toastMessage
+            .onEach { message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
