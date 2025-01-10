@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Dictionary</string>
+    <string name="save">Save</string>
+    <string name="title_hint">Title</string>
+    <string name="content_hint">Content</string>
+    <string name="empty_fields_message">Please fill in all fields</string>
+    <string name="add_entry">Add entry</string>
+    <string name="entry_content">Entry Content</string>
+    <string name="entry_date">Entry Date</string>
+    <string name="entry_title">Entry Title</string>
+    <string name="pin">Придумайте PIN-код</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_0">0</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="content_preview_goes_here">Content preview goes here</string>
+    <string name="back_button">Back button</string>
+    <string name="redactor">Редактор записи</string>
+    <string name="save_button">Save button</string>
+    <string name="tittle">Название записи</string>
+    <string name="description">Текст записи</string>
+</resources>
