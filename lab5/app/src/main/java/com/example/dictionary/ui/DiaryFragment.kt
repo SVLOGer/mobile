@@ -3,7 +3,6 @@ package com.example.dictionary.ui
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
-import android.icu.util.TimeZone
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment

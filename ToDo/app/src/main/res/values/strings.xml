@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="save">Save</string>
+    <string name="title_hint">Title</string>
+    <string name="content_hint">Content</string>
+    <string name="empty_fields_message">Please fill in all fields</string>
+    <string name="add_entry">Add entry</string>
+    <string name="entry_content">Entry Content</string>
+    <string name="entry_date">Entry Date</string>
+    <string name="entry_title">Entry Title</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="content_preview_goes_here">Content preview goes here</string>
+    <string name="back_button">Back button</string>
+    <string name="redactor">Редактор задачи</string>
+    <string name="save_button">Save button</string>
+    <string name="tittle">Название задачи</string>
+    <string name="description">Текст задачи</string>
+    <string name="Todo_title">Список задач</string>
+    <string name="Empty">Задачи отсутствуют</string>
+    <string name="Add_task">Добавить задачу</string>
+    <string name="Choose_filter">Выберите элемент из списка</string>
+</resources>
