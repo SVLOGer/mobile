@@ -25,7 +25,7 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
 
         binding = FragmentCreateRecordBinding.bind(view)
 
-        val items = arrayOf("Не начато", "В процессе", "Готово")
+        val items = arrayOf(getString(R.string.not_started), getString(R.string.in_progress), getString(R.string.done))
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -41,7 +41,7 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
             binding.recordTitle.setText(requireArguments().getCharSequence("TITLE"))
             binding.recordContent.setText(requireArguments().getCharSequence("CONTENT"))
             val status = when (requireArguments().getString("STATUS")) {
-                "All" -> "Все задачи"
+                "All tasks" -> "Все задачи"
                 "Not started" -> "Не начато"
                 "In progress" -> "В процессе"
                 "Done" -> "Готово"
@@ -55,7 +55,7 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
             val date = Date(dateInMillis)
             val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
             val formatedDate = dateFormat.format(date)
-            binding.selectedDateText.setText("Выбранная дата: " + formatedDate)
+            binding.selectedDateText.setText(getString(R.string.date_choosed) + " " + formatedDate)
             binding.createButton.setOnClickListener { updateTodoRecord(
                 uid = requireArguments().getString("ID") as String,
             ) }
@@ -78,11 +78,11 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
         val dateInMillis: Long = date?.time ?: 0L
 
         val status = when (binding.recordSpinner.selectedItem.toString()) {
-            "Все задачи" -> "All"
+            "Все задачи" -> "All tasks"
             "Не начато" -> "Not started"
             "В процессе" -> "In progress"
             "Готово" -> "Done"
-            else -> "Unknown"
+            else -> binding.recordSpinner.selectedItem.toString()
         }
 
         viewModel.updateTodoRecord(
@@ -103,6 +103,7 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
 
         val selectedDateText = binding.selectedDateText.text.toString()
         val dateString = selectedDateText.substringAfter(": ").trim()
+        println(dateString)
         val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         val date: Date? = dateFormat.parse(dateString)
         val dateInMillis: Long = date?.time ?: 0L
@@ -112,7 +113,7 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
             "Не начато" -> "Not started"
             "В процессе" -> "In progress"
             "Готово" -> "Done"
-            else -> "Unknown"
+            else -> binding.recordSpinner.selectedItem.toString()
         }
 
         viewModel.createTodoRecord(
@@ -132,7 +133,7 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            binding.selectedDateText.text = "Выбранная дата: ${selectedDay}.${selectedMonth + 1}.$selectedYear"
+            binding.selectedDateText.text = getString(R.string.date_choosed) + " ${selectedDay}.${selectedMonth + 1}.$selectedYear"
     }, year, month, day).show()
 }
 }

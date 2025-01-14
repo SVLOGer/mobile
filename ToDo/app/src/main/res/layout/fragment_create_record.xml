@@ -97,7 +97,7 @@
             android:layout_marginTop="15dp"
             android:textSize="18dp"
             android:layout_marginLeft="5dp"
-            android:text="Выберите конечный срок задачи" />
+            android:text="@string/Deadline" />
 
         <ImageButton
             android:id="@+id/select_date_button"
@@ -115,7 +115,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:textSize="18dp"
-            android:text="Дата не выбрана" />
+            android:text="@string/date_empty" />
 
     </LinearLayout>
 

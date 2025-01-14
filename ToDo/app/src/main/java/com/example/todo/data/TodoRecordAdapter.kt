@@ -1,63 +1,102 @@
+import android.content.Context
 import android.os.Build
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.R
+import com.example.todo.data.TodoItem
 import com.example.todo.data.TodoRecord
-import com.example.todo.databinding.ItemTodoBinding
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
 class TodoAdapter(
     private val gotoEditorFn: (arguments: Bundle) -> Unit,
-    private val deleteTodoRecord: (todoRecord: TodoRecord) -> Unit
-) : RecyclerView.Adapter<TodoViewHolder>() {
-    var todoRecordList = listOf<TodoRecord>()
+    private val deleteTodoRecord: (todoRecord: TodoRecord) -> Unit,
+    private val localState: String
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getItemCount() = todoRecordList.count()
+    var todoItemList = listOf<TodoItem>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemTodoBinding.inflate(inflater, parent, false)
+    override fun getItemCount(): Int {
+        return todoItemList.size
+    }
 
-        return TodoViewHolder(binding.root)
+    override fun getItemViewType(position: Int): Int {
+        return when (todoItemList[position]) {
+            is TodoItem.Header -> 0
+            is TodoItem.Task -> 1
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            0 -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_header, parent, false)
+                HeaderViewHolder(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_todo, parent, false)
+                TaskViewHolder(view)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val itemBinding = ItemTodoBinding.bind(holder.itemView)
-        val todoRecord = todoRecordList[position]
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (val item = todoItemList[position]) {
+            is TodoItem.Header -> (holder as HeaderViewHolder).bind(item)
+            is TodoItem.Task -> (holder as TaskViewHolder).bind(item.todoRecord)
+        }
+    }
 
-        itemBinding.recordTitle.text = todoRecord.title
-        itemBinding.recordContent.text = todoRecord.content
-        itemBinding.recordState.text = todoRecord.status
+    inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val titleTextView: TextView = view.findViewById(R.id.headerText)
 
-        val deadline = todoRecord.deadline
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault())
-        val formattedDate = formatter.format(Instant.ofEpochMilli(deadline))
-        itemBinding.recordDate.text = formattedDate
+        fun bind(header: TodoItem.Header) {
+            titleTextView.text = header.title
+        }
+    }
 
+    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val titleTextView: TextView = view.findViewById(R.id.record_title)
+        private val contentTextView: TextView = view.findViewById(R.id.record_content)
+        private val stateTextView: TextView = view.findViewById(R.id.record_state)
+        private val dateTextView: TextView = view.findViewById(R.id.record_date)
+        private val deleteButton: ImageButton = view.findViewById(R.id.record_delete_button)
 
-        holder.itemView.setOnClickListener {
-            val arguments = Bundle().apply {
-                putString("TITLE", todoRecord.title)
-                putString("CONTENT", todoRecord.content)
-                putString("ID", todoRecord.uid)
-                putLong("DEADLINE", todoRecord.deadline)
-                putString("STATUS", todoRecord.status)
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun bind(todoRecord: TodoRecord) {
+            titleTextView.text = todoRecord.title
+            contentTextView.text = todoRecord.content
+            stateTextView.text = if(localState == "en"){
+                todoRecord.status
+            }
+            else {
+                when(todoRecord.status) {
+                    "Not started" -> "Не начато"
+                    "In progress" -> "В процессе"
+                    "Done" -> "Готово"
+                    else -> ""
+                }
             }
 
-            gotoEditorFn(arguments)
-        }
+            val deadline = todoRecord.deadline
+            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault())
+            val formattedDate = formatter.format(Instant.ofEpochMilli(deadline))
 
-        itemBinding.recordDeleteButton.setOnClickListener {
-            deleteTodoRecord(todoRecord)
+            dateTextView.text = formattedDate
+
+            deleteButton.setOnClickListener {
+                deleteTodoRecord(todoRecord)
+            }
         }
     }
 }

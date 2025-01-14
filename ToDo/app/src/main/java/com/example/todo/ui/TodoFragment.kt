@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.todo.MainActivity
 import com.example.todo.R
+import com.example.todo.data.TodoItem
 import com.example.todo.data.TodoRecord
 import com.example.todo.databinding.FragmentTodoBinding
 import com.example.todo.viewmodel.TodoViewModel
@@ -22,8 +24,7 @@ import java.util.Calendar
 class TodoFragment : Fragment(R.layout.fragment_todo) {
     private val viewModel: TodoViewModel by activityViewModels()
     private lateinit var binding: FragmentTodoBinding
-    private lateinit var tomorrowAdapter: TodoAdapter
-    private lateinit var futureAdapter: TodoAdapter
+    private lateinit var todoAdapter: TodoAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
@@ -34,28 +35,19 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tomorrowAdapter = TodoAdapter(
+        todoAdapter = TodoAdapter(
             deleteTodoRecord = { todoRecord: TodoRecord ->
                 viewModel.deleteTodoRecord(todoRecord)
             },
             gotoEditorFn = { args: Bundle ->
                 findNavController().navigate(R.id.action_fragmentTodo_to_fragmentEditor, args)
-            }
-        )
-
-        futureAdapter = TodoAdapter(
-            deleteTodoRecord = { todoRecord: TodoRecord ->
-                viewModel.deleteTodoRecord(todoRecord)
             },
-            gotoEditorFn = { args: Bundle ->
-                findNavController().navigate(R.id.action_fragmentTodo_to_fragmentEditor, args)
-            }
+            localState = LocaleManager.getLocale(requireContext())
         )
 
-        binding.tomorrowListView.adapter = tomorrowAdapter
-        binding.futureListView.adapter = futureAdapter
+        binding.todoListView.adapter = todoAdapter
 
-        val items = arrayOf("Все задачи", "Не начато", "В процессе", "Готово")
+        val items = arrayOf(getString(R.string.all_tasks), getString(R.string.not_started), getString(R.string.in_progress), getString(R.string.done))
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -69,6 +61,34 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
+        val languageItems = arrayOf("English", "Русский")
+        val languageAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, languageItems)
+        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.languageSpinner.adapter = languageAdapter
+
+        binding.languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedLanguage = when (position) {
+                    0 -> "en"
+                    1 -> "ru"
+                    else -> "en"
+                }
+                (activity as? MainActivity)?.changeLanguage(selectedLanguage)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        val currentLocale = LocaleManager.getLocale(requireContext())
+
+        val position = when (currentLocale) {
+            "en" -> 0
+            "ru" -> 1
+            else -> 0
+        }
+
+        binding.languageSpinner.setSelection(position)
 
         binding.createButton.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentTodo_to_fragmentEditor)
@@ -88,17 +108,6 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
                     set(Calendar.MILLISECOND, 0)
                 }.timeInMillis
 
-                val updatedRecords = filteredRecords.map { record ->
-                    record.copy(status = when (record.status) {
-                        "All" -> "Все задачи"
-                        "Not started" -> "Не начато"
-                        "In progress" -> "В процессе"
-                        "Done" -> "Готово"
-                        else -> "Неизвестно"
-                    })
-                }.filter { it.deadline >= tomorrow }
-
-
                 val dayAfterTomorrow = Calendar.getInstance().apply {
                     add(Calendar.DAY_OF_YEAR, 2)
                     set(Calendar.HOUR_OF_DAY, 0)
@@ -107,33 +116,31 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
                     set(Calendar.MILLISECOND, 0)
                 }.timeInMillis
 
-                val tasksDueTomorrow = updatedRecords.filter { it.deadline in tomorrow until dayAfterTomorrow }
-                val futureTasks = updatedRecords.filter { it.deadline >= dayAfterTomorrow }
+                val tasksDueTomorrow = filteredRecords.filter { it.deadline in tomorrow until dayAfterTomorrow }
+                val futureTasks = filteredRecords.filter { it.deadline >= dayAfterTomorrow }
 
-                println("TodoFragment"+"Tasks due tomorrow: ${tasksDueTomorrow.size}")
-                println("TodoFragment"+"Future tasks: ${futureTasks.size}")
+                val items = mutableListOf<TodoItem>()
 
-                tomorrowAdapter.todoRecordList = tasksDueTomorrow.sortedByDescending { it.deadline }
-                futureAdapter.todoRecordList = futureTasks.sortedByDescending { it.deadline }
+                if (tasksDueTomorrow.isNotEmpty()) {
+                    items.add(TodoItem.Header(getString(R.string.tomorrow)))
+                    items.addAll(tasksDueTomorrow.map { TodoItem.Task(it) })
+                }
 
-                tomorrowAdapter.notifyDataSetChanged()
-                futureAdapter.notifyDataSetChanged()
+                if (futureTasks.isNotEmpty()) {
+                    items.add(TodoItem.Header(getString(R.string.future)))
+                    items.addAll(futureTasks.map { TodoItem.Task(it) })
+                }
 
-                updateVisibility(updatedRecords.isEmpty())
+                todoAdapter.todoItemList = items
+                todoAdapter.notifyDataSetChanged()
+
+                updateVisibility(items.isEmpty())
             }
         }
     }
 
-
     private fun updateVisibility(isEmpty: Boolean) {
-        binding.viewTodo.visibility = View.GONE
-        binding.emptyTodo.visibility = View.GONE
-        if (isEmpty) {
-            binding.emptyTodo.visibility = View.VISIBLE
-            binding.viewTodo.visibility = View.GONE
-        } else {
-            binding.emptyTodo.visibility = View.GONE
-            binding.viewTodo.visibility = View.VISIBLE
-        }
+        binding.viewTodo.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        binding.emptyTodo.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 }
