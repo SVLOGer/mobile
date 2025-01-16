@@ -30,4 +30,7 @@
     <string name="not_started">Не начато</string>
     <string name="in_progress">В процессе</string>
     <string name="done">Готово</string>
+    <string name="new_category">Новая категория</string>
+    <string name="create_category">Создать категорию</string>
+    <string name="all_category">Все категории</string>
 </resources>

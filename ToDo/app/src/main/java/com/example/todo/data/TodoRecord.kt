@@ -20,4 +20,7 @@ data class TodoRecord(
 
     @ColumnInfo(name = "status")
     val status: String,
+
+    @ColumnInfo(name = "category")
+    val category: String,
 )

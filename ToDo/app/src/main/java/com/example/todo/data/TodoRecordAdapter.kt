@@ -1,4 +1,3 @@
-import android.content.Context
 import android.os.Build
 
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.data.TodoItem
@@ -93,6 +91,18 @@ class TodoAdapter(
             val formattedDate = formatter.format(Instant.ofEpochMilli(deadline))
 
             dateTextView.text = formattedDate
+
+            itemView.setOnClickListener {
+                val args = Bundle().apply {
+                    putString("ID", todoRecord.uid)
+                    putString("TITLE", todoRecord.title)
+                    putString("CONTENT", todoRecord.content)
+                    putString("STATUS", todoRecord.status)
+                    putLong("DEADLINE", todoRecord.deadline)
+                    putString("CATEGORY", todoRecord.category)
+                }
+                gotoEditorFn(args)
+            }
 
             deleteButton.setOnClickListener {
                 deleteTodoRecord(todoRecord)

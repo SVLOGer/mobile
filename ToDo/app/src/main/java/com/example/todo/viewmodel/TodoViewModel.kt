@@ -14,14 +14,22 @@
     class TodoViewModel : ViewModel() {
         val records: Flow<List<TodoRecord>> = StorageApp.db.todoRecordDao().getAllAsFlow()
         private val selectedStatus = MutableStateFlow<String>("All tasks")
+        private val selectedCategory = MutableStateFlow("All category")
 
-        val filteredRecords: Flow<List<TodoRecord>> = combine(records, selectedStatus) { todoRecords, status ->
-            println(status)
-            if (status == "All tasks") {
+        val filteredRecords: Flow<List<TodoRecord>> = combine(records, selectedStatus, selectedCategory) { todoRecords, status, category ->
+            if (status == "All tasks" && (category == "All category" || category == "Все категории")) {
                 todoRecords
             }
             else {
-                todoRecords.filter { it.status == status }
+                if (category != "All category") {
+                    if (status != "All tasks") {
+                        todoRecords.filter { it.category == category  && it.status == status}
+                    } else {
+                        todoRecords.filter { it.category == category }
+                    }
+                } else {
+                    todoRecords.filter { it.status == status }
+                }
             }
         }
 
@@ -35,6 +43,10 @@
             }
         }
 
+        fun setSelectedCategory(category: String) {
+            selectedCategory.value = category
+        }
+
         suspend fun getRecords(): List<TodoRecord> {
             val deferred = viewModelScope.async {
                 StorageApp.db.todoRecordDao().getAll()
@@ -43,7 +55,7 @@
             return deferred.await()
         }
 
-        fun createTodoRecord(title: String, content: String, deadline: Long, status: String) {
+        fun createTodoRecord(title: String, content: String, deadline: Long, status: String, category: String) {
             viewModelScope.launch {
 
                 val todoRecordDao = StorageApp.db.todoRecordDao()
@@ -58,13 +70,14 @@
                     content,
                     deadline,
                     status,
+                    category,
                 )
 
                 todoRecordDao.insertAll(newTodoRecord)
             }
         }
 
-        fun updateTodoRecord(uid: String, title: String, content: String, deadline: Long, status: String) {
+        fun updateTodoRecord(uid: String, title: String, content: String, deadline: Long, status: String, category: String) {
             viewModelScope.launch {
 
                 val todoRecordDao = StorageApp.db.todoRecordDao()
@@ -75,6 +88,7 @@
                     content,
                     deadline,
                     status,
+                    category,
                 )
 
                 todoRecordDao.updateAll(todoRecord)

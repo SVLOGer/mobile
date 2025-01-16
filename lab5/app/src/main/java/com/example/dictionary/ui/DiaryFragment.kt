@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,8 +21,8 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
     private val viewModel: DiaryViewModel by activityViewModels()
     private lateinit var binding: FragmentDiaryBinding
     private lateinit var diaryAdapter: DiaryAdapter
-
-    private var selectedDateMillis: Long? = null
+    private lateinit var filterButton: ImageButton
+    private var isFiltered = false
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,8 +47,18 @@ class DiaryFragment : Fragment(R.layout.fragment_diary) {
             findNavController().navigate(R.id.action_fragmentDiary_to_fragmentEditor)
         }
 
+        filterButton = view.findViewById(R.id.select_date_button)
+
         binding.selectDateButton.setOnClickListener {
-            showDatePicker()
+            if (isFiltered) {
+                viewModel.setSelectedDate(null)
+                filterButton.setImageResource(R.drawable.filter)
+            }
+            else {
+                showDatePicker()
+                filterButton.setImageResource(R.drawable.filtered)
+            }
+            isFiltered = !isFiltered
         }
 
         lifecycleScope.launch {

@@ -1,17 +1,18 @@
 package com.example.todo.ui
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
 import com.example.todo.databinding.FragmentCreateRecordBinding
+import com.example.todo.viewmodel.CategoryViewModel
 import com.example.todo.viewmodel.TodoViewModel
 import java.util.Date
 import java.util.Locale
@@ -19,6 +20,8 @@ import java.util.Locale
 class EditorFragment : Fragment(R.layout.fragment_create_record) {
     private val viewModel: TodoViewModel by activityViewModels()
     private lateinit var binding: FragmentCreateRecordBinding
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
+    private lateinit var categories: MutableList<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,8 +34,27 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
 
         binding.recordSpinner.adapter = adapter
 
+        categories = categoryViewModel.categories.value ?: mutableListOf()
+
+        loadCategories()
+
+        val adapterCat = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+        adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        binding.categorySpinner.adapter = adapterCat
+
         binding.backButton.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentEditor_to_fragmentTodo)
+        }
+
+        binding.createCategoryButton.setOnClickListener {
+            val newCategory = binding.newCategoryEditText.text.toString()
+            if (newCategory.isNotEmpty() && !categories.contains(newCategory)) {
+                categories.add(newCategory)
+                adapter.notifyDataSetChanged()
+                binding.newCategoryEditText.text.clear()
+                saveCategories()
+            }
         }
 
         if (arguments == null) {
@@ -50,6 +72,11 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
             val statusPosition = items.indexOf(status)
             if (statusPosition >= 0) {
                 binding.recordSpinner.setSelection(statusPosition)
+            }
+            val category = requireArguments().getString("CATEGORY")
+            val categoryPosition = categories.indexOf(category)
+            if (categoryPosition >= 0) {
+                binding.categorySpinner.setSelection(categoryPosition)
             }
             val dateInMillis = requireArguments().getLong("DEADLINE")
             val date = Date(dateInMillis)
@@ -90,7 +117,8 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
             title = binding.recordTitle.text.toString(),
             content = binding.recordContent.text.toString(),
             deadline = dateInMillis,
-            status = status,
+            status,
+            category = binding.categorySpinner.selectedItem.toString(),
         )
 
         findNavController().navigate(R.id.action_fragmentEditor_to_fragmentTodo)
@@ -121,9 +149,24 @@ class EditorFragment : Fragment(R.layout.fragment_create_record) {
             binding.recordContent.text.toString(),
             dateInMillis,
             status,
+            binding.categorySpinner.selectedItem.toString(),
         )
 
         findNavController().navigate(R.id.action_fragmentEditor_to_fragmentTodo)
+    }
+
+    private fun saveCategories() {
+        val sharedPreferences = requireActivity().getSharedPreferences("todo_preferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("categories", categories.toSet())
+        editor.apply()
+    }
+
+    private fun loadCategories() {
+        val sharedPreferences = requireActivity().getSharedPreferences("todo_preferences", Context.MODE_PRIVATE)
+        val savedCategories = sharedPreferences.getStringSet("categories", setOf())
+        categories.clear()
+        categories.addAll(savedCategories ?: setOf())
     }
 
     private fun showDatePicker() {

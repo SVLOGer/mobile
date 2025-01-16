@@ -29,4 +29,7 @@
     <string name="not_started">Not started</string>
     <string name="in_progress">In progress</string>
     <string name="done">Done</string>
+    <string name="new_category">New category</string>
+    <string name="create_category">Create category</string>
+    <string name="all_category">All category</string>
 </resources>

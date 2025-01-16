@@ -17,6 +17,7 @@ import com.example.todo.R
 import com.example.todo.data.TodoItem
 import com.example.todo.data.TodoRecord
 import com.example.todo.databinding.FragmentTodoBinding
+import com.example.todo.viewmodel.CategoryViewModel
 import com.example.todo.viewmodel.TodoViewModel
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -25,6 +26,7 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
     private val viewModel: TodoViewModel by activityViewModels()
     private lateinit var binding: FragmentTodoBinding
     private lateinit var todoAdapter: TodoAdapter
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
@@ -46,7 +48,6 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
         )
 
         binding.todoListView.adapter = todoAdapter
-
         val items = arrayOf(getString(R.string.all_tasks), getString(R.string.not_started), getString(R.string.in_progress), getString(R.string.done))
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -57,6 +58,22 @@ class TodoFragment : Fragment(R.layout.fragment_todo) {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem = parent.getItemAtPosition(position) as String
                 viewModel.setSelectedStatus(selectedItem)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        val categories = categoryViewModel.categories.value?.toTypedArray() ?: arrayOf()
+        val allCategories = arrayOf(getString(R.string.all_category)) + categories
+        val adapterCat = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, allCategories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        binding.categorySpinner.adapter = adapterCat
+
+        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position) as String
+                viewModel.setSelectedCategory(selectedItem)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
